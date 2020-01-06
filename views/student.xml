@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <odoo>
     <record model="ir.ui.view" id="student_form_view">
         <field name="name">student.student.form</field>
         <field name="model">student.student</field>
         <field name="arch" type="xml">
             <form string="University">
+                <header>
+                    <button string="draft" name="draft" type="object" />
+
+                    <button string="confirm" name="confirm"  type="object" />
+                     <button string="done" name="done"  type="object"/>
+                      <field name="state" widget="statusbar" statusbar_visible="confirm,done" clickable="True"/>
+                    
+                </header>
                 <sheet>
                     <group>
-                          <field name="student_roll_no" />
-                		  <field name="student_mail_id" />
-                		  <field name="student_cource" />
-                        
+                        <field name="student_roll_no" />
+                        <field name="student_mail_id" />
+                        <field name="student_cource" />
+                        <field name="student_institute" />
+                        <field name="student_leave_date"/>
+                        <field name="student_leave_date_end"/>
+                        <field name="total_leave"/>
                     </group>
                 </sheet>
             </form>
@@ -25,16 +35,29 @@
                 <field name="student_roll_no" />
                 <field name="student_mail_id" />
                 <field name="student_cource" />
-
-                
+                <field name="student_institute" />
             </tree>
         </field>
     </record>
+
+      <record id="view_calendar_student" model="ir.ui.view">
+        <field name="name">student.student.calendar</field>
+        <field name="model">student.student</field>
+        <!-- <field name="priority" eval="2"/> -->
+        <field name="arch" type="xml">
+            <calendar string="Meetings" date_start="student_leave_date" date_stop="student_leave_date_end" color="total_leave">
+                <field name="total_leave"/>
+            </calendar>
+        </field>
+    </record>
+
     <record id="student_action_view" model="ir.actions.act_window">
         <field name="name">student.student</field>
         <field name="res_model">student.student</field>
         <!-- <field name="view_type">form</field> -->
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,calendar</field>
     </record>
-    <menuitem id="student_view_menu" name="student"  action="student_action_view"/>
+
+   
+    <menuitem id="student_view_menu" name="student" action="student_action_view" />
 </odoo>
