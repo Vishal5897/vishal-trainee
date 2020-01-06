@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="university_tree_view">
+        <field name="name">university.university.form</field>
+        <field name="model">university.university</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="university_name" />
+                <field name="university_address" />
+                <field name="university_contact" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="university_form_view">
+        <field name="name">university.university.form</field>
+        <field name="model">university.university</field>
+        <field name="arch" type="xml">
+            <form string="University">
+                <sheet>
+                    <group>
+                    <field name="university_name" />
+                    <field name="university_address" />
+                    <field name="university_contact" />
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="university_action" model="ir.actions.act_window">
+        <field name="name">University</field>
+        <field name="res_model">university.university</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="Education_payment_system" name="EPS"/>
+    <menuitem id="object_name_menu" name="University" action="university_action" parent="Education_payment_system"/>
+</odoo>

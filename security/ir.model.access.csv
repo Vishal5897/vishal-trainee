@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_university_university,access_university_university,model_university_university,base.group_user,1,1,1,1
+access_institute_institute_details,access_institute_institute_details,model_institute_institute_details,base.group_user,1,1,1,1
+access_courece_cource,access_courece_cource,model_courece_cource,base.group_user,1,1,1,1
+access_student_student,access_student_student,model_student_student,base.group_user,1,1,1,1

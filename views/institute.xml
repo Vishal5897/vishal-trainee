@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="institute_form_view">
+        <field name="name">institute.institute.details.form</field>
+        <field name="model">institute.institute.details</field>
+        <field name="arch" type="xml">
+            <form string="University">
+                <sheet>
+                    <group>
+                    <field name='institute_name'/>
+                    <field name='institute_university_name'/>
+                    <field name='institute_cource'/>
+                    
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="_tree_view">
+        <field name="name">institute.institute.details.form</field>
+        <field name="model">institute.institute.details</field>
+        <field name="arch" type="xml">
+            <tree>
+               <field name='institute_name'/>
+               <field name='institute_university_name'/>
+               <field name='institute_cource' widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+<record id="institute_menu_action" model="ir.actions.act_window">
+	<field name="name">name</field>
+	<field name="res_model">institute.institute.details</field>
+	<field name="view_mode">tree,form</field>
+</record>
+
+<menuitem id="institute_menu" name="institute" action="institute_menu_action" parent="object_name_menu" />
+
+</odoo>

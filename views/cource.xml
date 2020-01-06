@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="cource_form_view">
+        <field name="name">courece.cource.form</field>
+        <field name="model">courece.cource</field>
+        <field name="arch" type="xml">
+            <form string="University">
+                <sheet>
+                    <group>
+                        <field name="courece_name" />
+                        <field name="courece_fees" />
+                        <!-- <field name="courece_institutes" /> -->
+                        
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model='ir.ui.view' id='cource_tree_view'>
+        <field name='name'>courece.cource.tree</field>
+        <field name='model'>courece.cource</field>
+        <field name='arch' type='xml'>
+            <tree string='description'>
+                <field name="courece_name" />
+                <field name="courece_fees" />
+                <!-- <field name="courece_institutes" /> -->
+
+                
+            </tree>
+        </field>
+    </record>
+    <record id="cource_action_view" model="ir.actions.act_window">
+        <field name="name">courece.cource</field>
+        <field name="res_model">courece.cource</field>
+        <!-- <field name="view_type">form</field> -->
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="courece_view_menu" name="cource" parent="object_name_menu" action="cource_action_view"/>
+</odoo>
