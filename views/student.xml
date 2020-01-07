@@ -8,7 +8,7 @@
                 <header>
                     <button string="draft" name="draft" type="object" />
 
-                    <button string="confirm" name="confirm"  type="object" />
+                    <button decoration-danger="draft" string="confirm" name="confirm"  type="object" />
                      <button string="done" name="done"  type="object"/>
                       <field name="state" widget="statusbar" statusbar_visible="confirm,done" clickable="True"/>
                     
@@ -31,7 +31,7 @@
         <field name='name'>student.student.tree</field>
         <field name='model'>student.student</field>
         <field name='arch' type='xml'>
-            <tree string='description'>
+            <tree decoration-it="student_mail_id" string='description' decoration-danger ="student_mail_id">
                 <field name="student_roll_no" />
                 <field name="student_mail_id" />
                 <field name="student_cource" />
