@@ -6,12 +6,14 @@
         <field name="arch" type="xml">
             <form string="University">
                 <header>
-                    <button string="draft" name="draft" type="object" />
+                    <button type="action"
+                    string="Action Button"                 
+                    name="%(student_action_view)d" />
 
-                    <button decoration-danger="draft" string="confirm" name="confirm"  type="object" />
-                     <button string="done" name="done"  type="object"/>
-                      <field name="state" widget="statusbar" statusbar_visible="confirm,done" clickable="True"/>
-                    
+                    <button string="draft" name="draft" states="draft,confirm" class="btn-primary" type="object" />
+                    <button states="confirm,done" class="btn-primary" string="confirm" name="confirm" type="object" />
+                    <button string="done" class="btn-primary" name="done" states="done" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="confirm,done,draft" clickable="True" />
                 </header>
                 <sheet>
                     <group>
@@ -19,9 +21,9 @@
                         <field name="student_mail_id" />
                         <field name="student_cource" />
                         <field name="student_institute" />
-                        <field name="student_leave_date"/>
-                        <field name="student_leave_date_end"/>
-                        <field name="total_leave"/>
+                        <field name="student_leave_date" />
+                        <field name="student_leave_date_end" />
+                        <field name="total_leave" />
                     </group>
                 </sheet>
             </form>
@@ -31,7 +33,7 @@
         <field name='name'>student.student.tree</field>
         <field name='model'>student.student</field>
         <field name='arch' type='xml'>
-            <tree decoration-it="student_mail_id" string='description' decoration-danger ="student_mail_id">
+            <tree decoration-it="student_mail_id" string='description' decoration-danger="student_mail_id">
                 <field name="student_roll_no" />
                 <field name="student_mail_id" />
                 <field name="student_cource" />
@@ -39,25 +41,88 @@
             </tree>
         </field>
     </record>
-
-      <record id="view_calendar_student" model="ir.ui.view">
+    <record id="student_search_view" model="ir.ui.view">
+        <field name="name">student.student</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <search string="Student Information">
+                <field name="student_mail_id" />
+                <field name="student_cource" />
+                <field name="student_institute" />
+                <group expand="0" string="Group By">
+                    <filter name="student" string="Course" domain="['student_institute','=','computer scince']" context="{'group_by':'student_institute'}" help="Group Students Course Wise" />
+                    <filter name="student" string="student_roll_no" domain="['student_roll_no','=','20']" context="{'group_by':'student_roll_no'}" help="Group Students Course Wise" />
+                </group>
+                <filter name="student_mail_id" string="mail id" domain="[('student_mail_id','=','123@gmail.com')]" help="Show all Physically Disabled Students" />
+            </search>
+        </field>
+    </record>
+    <record id="view_kanban" model="ir.ui.view">
+        <field name="name">student.student.kanban</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="student_roll_no" />
+                <field name="student_mail_id" />
+                <field name="student_cource" />
+                <field name="student_institute" />
+                <field name="student_leave_date" />
+                <field name="student_leave_date_end" />
+                <field name="total_leave" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div>
+                            <h1>
+                                <field name="student_leave_date" />
+                            </h1>
+                            <h2>
+                                <field name="student_cource" />
+                            </h2>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="student_search_view" model="ir.ui.view">
+        <field name="name">student.search.view</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <search string="Student Information">
+                <field name="student_roll_no" />
+                <field name="student_institute" />
+                <field name="student_institute" />
+                <group expand="0" string="Group By">
+                    <filter name="" string="student_institute" domain="[('student_institute','=','computer science')]" context="{'group_by':'student_institute'}" help="Group Students Course Wise" />
+                </group>
+                <filter name="" string="student_institute" domain="[('student_institute','=','computer science')]" />
+            </search>
+        </field>
+    </record>
+    <record id="view_calendar_student" model="ir.ui.view">
         <field name="name">student.student.calendar</field>
         <field name="model">student.student</field>
-        <!-- <field name="priority" eval="2"/> -->
         <field name="arch" type="xml">
             <calendar string="Meetings" date_start="student_leave_date" date_stop="student_leave_date_end" color="total_leave">
-                <field name="total_leave"/>
+                <field name="total_leave" />
             </calendar>
         </field>
     </record>
-
+    <record id="student_graph_view" model="ir.ui.view">
+        <field name="name">student.student</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <graph string="Product Graph" type="pie">
+                <field name="student_leave_date" />
+                <field name="student_leave_date_end" />
+            </graph>
+        </field>
+    </record>
     <record id="student_action_view" model="ir.actions.act_window">
         <field name="name">student.student</field>
         <field name="res_model">student.student</field>
-        <!-- <field name="view_type">form</field> -->
-        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_mode">tree,form,graph,calendar,kanban</field>
     </record>
-
-   
     <menuitem id="student_view_menu" name="student" action="student_action_view" />
 </odoo>
+

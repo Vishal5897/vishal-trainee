@@ -4,6 +4,7 @@
         <field name="name">university.university.form</field>
         <field name="model">university.university</field>
         <field name="arch" type="xml">
+    
             <tree>
                 <field name="university_name" />
                 <field name="university_address" />
@@ -18,20 +19,30 @@
             <form string="University">
                 <sheet>
                     <group>
-                    <field name="university_name" />
-                    <field name="university_address" />
-                    <field name="university_contact" />
-                </group>
-            </sheet>
+                        <field name="university_name" />
+                        <field name="university_address" />
+                        <field name="university_contact" />
+                    </group>
+                </sheet>
             </form>
         </field>
     </record>
-
-    <record id="university_action" model="ir.actions.act_window">
-        <field name="name">University</field>
-        <field name="res_model">university.university</field>
-        <field name="view_mode">tree,form</field>
+    <record id="university_graph_view" model="ir.ui.view">
+        <field name="name">university.university</field>
+        <field name="model">university.university</field>
+        <field name="arch" type="xml">
+            <graph string="Product Graph" type="line">
+                <field name="university_contact" type="col" />
+                <!-- <field name="university_contact" type="measure"/> -->
+            </graph>
+        </field>
     </record>
-    <menuitem id="Education_payment_system" name="EPS"/>
-    <menuitem id="object_name_menu" name="University" action="university_action" parent="Education_payment_system"/>
+        
+        <record id="university_action" model="ir.actions.act_window">
+            <field name="name">University</field>
+            <field name="res_model">university.university</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>
+        <menuitem id="Education_payment_system" name="EPS" />
+        <menuitem id="object_name_menu" name="University" action="university_action" parent="Education_payment_system" />
 </odoo>

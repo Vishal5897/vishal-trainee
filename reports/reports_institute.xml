@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report 
+        id="student_report" 
+        model="student.student" 
+        string="student" 
+        report_type="qweb-pdf" 
+        name="vishal-trainee-eps.report_invoice_with_payments" 
+        file="vishal-trainee-eps.report_invoice_with_payments" />
+</odoo>
+

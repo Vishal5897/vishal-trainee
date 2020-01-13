@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="insert">
+        <t t-call="website.layout">
+            <form method="post">
+                <div class="form-group">
+                    <label for="txt_cname">Cource Name</label>
+                    <t t-if="record">
+                        <input type="text" class="form-control" name="txt_cname" id="txt_cname" t-att-value="record.courece_name" />
+                    </t>
+                    <t t-else="">
+                        <input type="text" class="form-control" name="txt_cname" id="txt_cname" />
+                    </t>
+                </div>
+                <div class="form-group">
+                    <label for="txt_fees">Fees</label>
+                    <t t-if="record">
+                        <input type="text" class="form-control" name="txt_fees" id="txt_fees" t-att-value="record.courece_fees" />
+                    </t>
+                    <t t-else="">
+                        <input type="text" class="form-control" name="txt_fees" id="txt_fees" />
+                    </t>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </t>
+    </template>
+    <template id="index">
+        <t t-call="website.layout">
+            <title>Student</title>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>cource name</th>
+                        <th>feess</th>
+                        <td>action</td>
+                        <td>action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="record" t-as="cource">
+                        <p>
+                            <tr>
+                                <th>
+                                    <t t-esc="cource.courece_name" />
+                                </th>
+                                <th>
+                                    <t t-esc="cource.courece_fees" />
+                                </th>
+                                <th>
+                                    <a role="button" class="btn btn-primary " t-attf-href="/sestion/edit/{{slug(cource)}}"><i class="fa fa-pencil"></i></a>
+                                </th>
+                                <th>
+                                    <a role="button" class="btn btn-primary " t-attf-href="/sestion/delete/{{slug(cource)}}"><i class="fa fa-trash"></i></a>
+                                </th>
+                            </tr>
+                        </p>
+                    </t>
+                </tbody>
+            </table>
+            <!-- <button type="button" class="btn btn-default" id="insert">create</button> -->
+            <a role="button" class="btn btn-primary " t-attf-href="/sestion/create">Create cource</a>
+        </t>
+    </template>
+</odoo>

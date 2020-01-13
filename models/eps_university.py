@@ -25,6 +25,25 @@ class Institute(models.Model):
         'university.university', string='University Name')
     # institute_cource = fields.One2many('courece.cource','courece_institutes',string='Cource Name')
 
+    @api.model
+    def create(self,vals):
+        print("\n\n\n\n")
+        print(">>>>>>>>>>>>>> in create method")
+        print(">>>>>>>>>>>>>>>>>>>>>.values", vals)
+        return super(Institute, self).create(vals)
+
+
+    def write(self, vals):
+        print("\n\n\n\n")
+        print(">>>>>>>>>>>>>> in write method")
+        print(">>>>>>>>>>>>>>>>>>>>>.values", vals)
+        return super(Institute, self).write(vals)
+
+    def unlink(self):
+        print("\n\n\n\n")
+        print(">>>>>>>>>>>>>> in unlink method", self)
+        return super(Institute, self).unlink()
+
 
 class Cource(models.Model):
     _name = 'courece.cource'
@@ -48,6 +67,9 @@ class Student(models.Model):
         'institute.institute.details', string='Institute Name')
     student_cource = fields.Many2one('courece.cource', string='Cource Name')
     state = fields.Selection([('draft', 'New'), ('confirm', 'confirm'), ('done', 'done')], default='draft')
+    student_leave_date = fields.Date(string='Start date to leave', default=datetime.today(),store=True)
+    student_leave_date_end = fields.Date(string='end` date to leave',store=True)
+    total_leave = fields.Integer(string="Total Leave", compute="_compute_total")
 
     _sql_constraints = [
         ('student_roll_no', 'unique(student_roll_no)',
@@ -67,10 +89,6 @@ class Student(models.Model):
         for rec in self:
             rec.write({'state':'done'})
 
-    student_leave_date = fields.Date(string='Start date to leave', default=datetime.today())
-    student_leave_date_end = fields.Date(string='Start date to leave')
-    total_leave = fields.Integer(string="Total Leave", compute="_compute_total")
-
     def _compute_total(self):
         for i in self:
             if i.student_leave_date and i.student_leave_date_end:
@@ -78,3 +96,7 @@ class Student(models.Model):
                 i.total_leave = diff.days
             else:
                 i.total_leave = 2
+
+    # @api.model
+    # def get_all_data(self):
+    #     return self.search([])

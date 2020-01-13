@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="wizard_form_view">
+        <field name="name">name_id.form</field>
+        <field name="model">studentdemo.student</field>
+        <field name="arch" type="xml">
+            <form string="description">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="fees" />
+                    </group>
+                    <footer>
+                    	<button name="save_action" string="Save New Record" type="object"/>
+                    	<button string="Cancle" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="vizard_view_menu_student" model="ir.actions.act_window">
+        <field name="name">name</field>
+        <field name="res_model">studentdemo.student</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_form_view"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="vizard_view_menu" name="wizard" action="vizard_view_menu_student" parent="object_name_menu" />
+</odoo>
